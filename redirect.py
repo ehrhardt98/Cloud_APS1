@@ -6,7 +6,7 @@ import json
 
 ip = os.getenv("redirect_ip")
 
-addr = ip + ':5000'
+addr = 'http://' + ip + ':5000'
 
 app = FastAPI()
 
@@ -28,17 +28,14 @@ async def list_tasks():
 
 @app.post("/task")
 async def add_task(task: Tasks):
-
-    if len(dict_tasks.keys()) > 0:
-        dict_tasks[max(dict_tasks.keys()) + 1] = (task.name, task.priority)
-        return {"new task": task.name, "priority": task.priority}
-    else:
-        dict_tasks[0] = (task.name, task.priority)
-        return {"new task": task.name, "priority": task.priority}
+    data = {"new task": task.name, "priority": task.priority}
+    requests.post(url = addr + '/task', data = json.dumps(data))
+    
 
 @app.get("/task/{id}")
 async def get_task_by_id(id: int):
-    return dict_tasks.get(id)
+    redirect = requests.get(url = addr + '/task/' + id)
+    return redirect.json()
 
 @app.put("/task/{id}")
 async def update_task_by_id(id: int, task: Tasks):

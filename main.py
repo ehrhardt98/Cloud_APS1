@@ -22,10 +22,10 @@ async def add_task(task: Tasks):
 
     if len(dict_tasks.keys()) > 0:
         dict_tasks[max(dict_tasks.keys()) + 1] = (task.name, task.priority)
-        return {"nova task": task.name, "id": task.priority}
+        return {"new task": task.name, "priority": task.priority}
     else:
         dict_tasks[0] = (task.name, task.priority)
-        return {"nova task": task.name, "id": task.priority}
+        return {"new task": task.name, "priority": task.priority}
 
 @app.get("/task/{id}")
 async def get_task_by_id(id: int):

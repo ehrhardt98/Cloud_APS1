@@ -23,6 +23,7 @@ async def read_root():
 
 @app.get("/task")
 async def list_tasks():
+    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa')
     redirect = requests.get(url = addr + '/task')
     return redirect.json()
 

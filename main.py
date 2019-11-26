@@ -24,7 +24,7 @@ async def read_root():
 async def list_tasks():
     ret = {}
     ret['Values'] = []
-    for i in tasks.find(): # .sort( {'priority': 1} ):
+    for i in tasks.find().sort( {'priority': 1} ):
         ret['Values'].append(
             {
                 'id': str(i["_id"]), 
@@ -41,28 +41,3 @@ async def add_task(task: Tasks):
         'priority': task.priority,
     }
     tasks.insert(ret)
-
-@app.get("/healthcheck", status_code=200)
-async def healthcheck():
-    return
-
-# @app.get("/task/{id}")
-# async def get_task_by_id(id: int):
-#     return dict_tasks.get(id)
-
-# @app.put("/task/{id}")
-# async def update_task_by_id(id: int, task: Tasks):
-#     if id in dict_tasks.keys():
-#         dict_tasks[id] = (task.name, task.priority)
-#         return (task.name, task.priority)
-#     else:
-#         raise HTTPException(status_code=404, detail="no task with id {}".format(id))
-
-# @app.delete("/task/{id}")
-# async def delete_task_by_id(id: int):
-#     if id in dict_tasks.keys():
-#         dict_tasks.pop(id)
-#         return {"deleted task with id": id}
-#     else:
-#         raise HTTPException(status_code=404, detail="no task with id {}".format(id))
-

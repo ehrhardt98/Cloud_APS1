@@ -22,9 +22,10 @@ async def read_root():
 
 @app.get("/task")
 async def list_tasks():
-    ret = []
+    ret = {}
+    ret['Values'] = []
     for i in tasks.find(): # .sort( {'priority': 1} ):
-        ret.append(
+        ret['Values'].append(
             {
                 'id': i["_id"], 
                 'name': i["name"], 
@@ -41,6 +42,9 @@ async def add_task(task: Tasks):
     }
     tasks.insert(ret)
 
+@app.get("/healthcheck", status_code=200)
+async def healthcheck():
+    return
 
 # @app.get("/task/{id}")
 # async def get_task_by_id(id: int):
@@ -62,6 +66,3 @@ async def add_task(task: Tasks):
 #     else:
 #         raise HTTPException(status_code=404, detail="no task with id {}".format(id))
 
-# @app.get("/healthcheck", status_code=200)
-# async def healthcheck():
-#     return

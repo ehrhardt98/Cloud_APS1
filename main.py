@@ -24,7 +24,7 @@ async def read_root():
 async def list_tasks():
     ret = {}
     ret['Values'] = []
-    for i in tasks.find().sort( {'priority': 1} ):
+    for i in tasks.find(): # .sort( {'priority': 1} ):
         ret['Values'].append(
             {
                 'id': str(i["_id"]), 

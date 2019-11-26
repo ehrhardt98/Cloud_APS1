@@ -27,7 +27,7 @@ async def list_tasks():
     for i in tasks.find(): # .sort( {'priority': 1} ):
         ret['Values'].append(
             {
-                'id': i["_id"], 
+                'id': str(i["_id"]), 
                 'name': i["name"], 
                 'priority': i["priority"]
             }
